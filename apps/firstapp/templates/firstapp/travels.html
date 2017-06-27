@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head> 
+    <meta charset="utf-8">
+    <title> Blackbelt Exam </title>
+    <meta name="description" content="Black belt exam for Dave">
+    {%load staticfiles%}
+    <link rel="stylesheet" href="{% static 'firstapp/css/stylesheet.css'%}">
+</head>
+<body>
+<div class="wrapper">
+    <!-- flash messages --> 
+    {% if messages %}
+        {% for message in messages %}
+            <p class=flash> {{message}}<p>
+        {% endfor %}
+    {% endif %}
+    <a href="/logout"> <button>Logout</button></a>
+    <br>
+    <a href="/addtravel"> <button>Add a Travel Plan</button></a>
+    <div class="top">
+    {% for user in users %}
+    {% if user.id == request.session.loggedinUser %}
+    <h1> Hello, {{user.name}} </h1>
+    {% endif %}
+    {% endfor %}
+    <h2> Your Trip Schedules </h2>
+        <table class="datatable">
+        <tr>
+            <th>Destination</th> 
+            <th>Start</th>
+            <th>End</th>
+            <th>Plan</th>           
+        </tr>
+    {% for trip in trips %}
+    {% if trip.user.id == request.session.loggedinUser %}
+        <tr>
+            <td>{{trip.destination}}</td> 
+            <td>{{trip.start}}</td>
+            <td>{{trip.end}}</td>
+            <td>{{trip.description}} </td> 
+        </tr>
+    {% endif %}
+    {% endfor %}
+    </table>
+    <br>
+    <h3> Other User's Travel Plans</h3> 
+        <table class="datatable">
+        <tr>
+            <th>Name</th>
+            <th>Destination</th> 
+            <th>Start</th>
+            <th>End</th>
+            <th>Do you want to join?</th>           
+        </tr>
+    {% for trip in trips %}
+    {% if trip.user.id != request.session.loggedinUser %}
+        <tr>
+            <td> {{trip.user.name}} </td>
+            <td><a href="/travels/destination/{{trip.id}}"> {{trip.destination}}</a></td> 
+            <td>{{trip.start}}</td>
+            <td>{{trip.end}}</td>
+            <td> <a href="/travels/jointrip/{{trip.id}}"> Join</a></td> 
+        </tr>
+    {% endif %}
+    {% endfor %}
+    </table>
+
+</div>
+</body>
+</html>

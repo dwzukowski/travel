@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head> 
+    <meta charset="utf-8">
+    <title> Blackbelt Exam </title>
+    <meta name="description" content="Black belt exam for Dave">
+    {%load staticfiles%}
+    <link rel="stylesheet" href="{% static 'firstapp/css/stylesheet.css'%}">
+</head>
+<body>
+<div class="wrapper">
+    <!-- flash messages --> 
+    {% if messages %}
+        {% for message in messages %}
+            <p class=flash> {{message}}<p>
+        {% endfor %}
+    {% endif %}
+    <a href="/logout"> <button>Logout</button></a>
+    <a href="/travels"> <button>Home</button></a>
+    <h1> Add a trip </h1>
+    <form class="myform" action='/addtrip' method='post'>
+        {% csrf_token %}
+        <input type="text" name="destination" placeholder="destination">
+        <input type="text" name="description" placeholder="description">
+        <input type="date" name="start" placeholder="trip start">
+        <input type="date" name="end" placeholder="end">
+        <input type='submit' value='Submit'>
+    </form>
+
+</div>
+</body>
+</html>

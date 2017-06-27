@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head> 
+    <meta charset="utf-8">
+    <title> Blackbelt exam </title>
+    <meta name="description" content="belt exam">
+    {%load staticfiles%}
+    <link rel="stylesheet" href="{% static 'firstapp/css/stylesheet.css'%}">
+</head>
+<body>
+<div class="wrapper">
+    <a href="/logout"> <button>Logout</button></a>
+    <a href="/travels"> <button>Home</button></a>
+    <div class="top">
+    <h1> Trip to {{trips.destination}} </h1>
+    <p> Planned by {{trips.user.name}} </p>
+    <p> From: {{trips.start}} </p>
+    <p> To: {{trips.end}} </p> 
+    <p> Description: {{trips.description}} </p> 
+</div>
+    <h4> Other People on this Trip:</h5>
+    <ul>
+        {% for tripfriend in tripfriends %}
+        <li> {{tripfriend.friend.name}} </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

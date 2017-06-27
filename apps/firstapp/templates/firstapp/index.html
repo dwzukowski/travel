@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head> 
+    <meta charset="utf-8">
+    <title> Blackbelt Exam </title>
+    <meta name="description" content="Black belt exam for Dave">
+    {%load staticfiles%}
+    <link rel="stylesheet" href="{% static 'firstapp/css/stylesheet.css'%}">
+</head>
+<body>
+<div class="wrapper">
+    <!-- flash messages --> 
+    {% if messages %}
+        {% for message in messages %}
+            <p class=flash> {{message}}<p>
+        {% endfor %}
+    {% endif %}
+    <div class="top">
+    <h1> Register </h1>
+    <form class="myform" action='/register' method='post'>
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="userName" placeholder="username">
+        <input type="text" name="password" placeholder="password">
+        <input type="text" name="confirmpassword" placeholder="confirm password">
+        <input type='submit' value='Submit'>
+    </form>
+    </div>
+    <div>
+    <h1> Login </h1>
+    <form class="myform" action='/login' method='post'>
+    {% csrf_token %}
+        <input type="text" name="userName" placeholder="userName">
+        <input type="text" name="password" placeholder="password">
+        <input type='submit' value='Login'>
+    </form>
+    </div>
+</div>
+</body>
+</html>
